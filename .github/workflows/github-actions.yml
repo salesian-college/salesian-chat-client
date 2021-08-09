@@ -22,7 +22,7 @@ jobs:
         run: |
           yarn run release
 
-      - name: "Publish the build"
+      - name: Publish The Build
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -31,3 +31,7 @@ jobs:
           title: Development Build
           files: |
             webfiles.zip
+      
+      - name: Trigger Container Build
+        run: |
+          curl -XPOST -u "${{ secrets.BOT_NAME }}:${{ secrets.BOT_ACCESS_CODE }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/salesian-college/edge-server/dispatches --data '{"event_type": "build_container"}'
