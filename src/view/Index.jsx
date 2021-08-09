@@ -1,5 +1,4 @@
 import React from 'react';
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 const client = new W3CWebSocket('wss://echo.websocket.org');
 
