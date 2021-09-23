@@ -27,7 +27,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           automatic_release_tag: latest
-          prerelease: true
-          title: Development Build
+          title: Automatic Build
           files: |
             webfiles.zip
