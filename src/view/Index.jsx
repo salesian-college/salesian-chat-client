@@ -1,7 +1,5 @@
 import React from 'react';
 
-const client = new W3CWebSocket('wss://echo.websocket.org');
-
 class Index extends React.Component {
   constructor(props) {
     super(props)
