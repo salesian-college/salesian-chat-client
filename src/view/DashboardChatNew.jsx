@@ -47,6 +47,13 @@ class Player extends React.Component {
     // CHAT LINK SUBMIT
   }
 
+  deleteMessage = (messageNumber) => {
+    if (confirm("Are you sure you want to delete this message? It cannot be undone")) {
+      fetch(this.state.chatLink + '?delete=' + messageNumber.toString())
+    }
+    this.fetchData()
+  }
+
   render = () => {
     return (
       <div style={{ 'width': "100vw", "height": "100vh", "display": "flex", "flex-direction": "column" }}>
@@ -57,8 +64,10 @@ class Player extends React.Component {
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
               return (
                 <li key={index} style={{ 'padding': '5px' }}>
-                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
-                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px' }}>{item.content}</p>
+                  <button onClick={() => this.deleteMessage(index)} style={{ "width": "100%", "backgroundColor": "#f4f4f4", "padding": "10px", "border": "none", "TextAlign": "left"}}>
+                    <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
+                    <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px' }}>{item.content}</p>
+                  </button>
                 </li>
               )
             })}

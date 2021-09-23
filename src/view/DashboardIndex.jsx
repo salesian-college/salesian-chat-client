@@ -43,13 +43,9 @@ const DashboardIndex = () => (
               </HeaderName>
               <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
                 <SideNavItems>
+                  
                   <NavLink to="/Dashboard/MainChat" label="Main Stream Chat" />
                   <NavLink to="/Dashboard/CrewChat" label="Crew Chat" />
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
                 </SideNavItems>
               </SideNav>
             </Header>
