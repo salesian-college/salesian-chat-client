@@ -77,7 +77,9 @@ module.exports = {
     open: false,
     contentBase: path.join(__dirname, '/src/public/'),
     publicPath: 'http://localhost:3000/dist/',
-    proxy: {},
+    proxy: {
+      "/api": "http://localhost:3001"
+    },
     hot: true,
     hotOnly: true
   }

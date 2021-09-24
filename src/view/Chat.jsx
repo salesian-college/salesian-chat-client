@@ -3,11 +3,11 @@ import { TextInput, Button, Form } from 'carbon-components-react'
 import { Send32 } from '@carbon/icons-react'
 const fetch = require('node-fetch')
 
-class Player extends React.Component {
+class Chat extends React.Component {
 
   getmessages = () => {
     return new Promise((resolve, reject) => {
-      fetch(this.state.chatLink)
+      fetch(this.props.chatLink)
         .then(r => { resolve(r.json()) })
         .catch(e => reject(e))
     })
@@ -15,11 +15,9 @@ class Player extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props.chatLink)
     this.state = {
       messagesList: [],
-      inputValue: "",
-      chatLink: props.chatLink
+      inputValue: ""
     }
   }
 
@@ -39,17 +37,29 @@ class Player extends React.Component {
   }
 
   fetchData = () => {
-    // this.getmessages().then(r => { this.setState({ messagesList: r }) })
+    this.getmessages().then(r => { this.setState({ messagesList: r }) })
   }
 
   submitMessage = (event) => {
     event.preventDefault()
-    // CHAT LINK SUBMIT
+    fetch(this.props.chatLink,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ "content": this.state.inputValue })
+      })
+      .then(r => r.json())
+      .then((r) => {
+        this.setState({ messagesList: r, inputValue: "" })
+      })
   }
 
   render = () => {
     return (
-      <div style={{ 'width': "100vw", "height": "100vh", "display": "flex", "flex-direction": "column" }}>
+      <div style={{ 'width': "100vw", "height": "100vh", "display": "flex", "flexDirection": "column" }}>
         <div style={{ 'overflowY': 'scroll', "flex": "2 1 auto" }}>
           <ul>
             {this.state.messagesList.map((item, index) => {
@@ -65,7 +75,7 @@ class Player extends React.Component {
           </ul>
         </div>
         <div>
-          <Form onSubmit={this.submitMessage} style={{ 'width': "100vw", "display": "flex", "flex-direction": "row", "overflow": "hidden" }}>
+          <Form onSubmit={this.submitMessage} style={{ 'width': "100vw", "display": "flex", "flexDirection": "row", "overflow": "hidden" }}>
             <TextInput
               id="Message_Box"
               placeholder="Message"
@@ -91,4 +101,4 @@ class Player extends React.Component {
 }
 
 
-export default Player
+export default Chat

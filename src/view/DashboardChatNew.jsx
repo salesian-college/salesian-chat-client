@@ -15,7 +15,6 @@ class Player extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props.chatLink)
     this.state = {
       messagesList: [],
       inputValue: "",
@@ -39,24 +38,48 @@ class Player extends React.Component {
   }
 
   fetchData = () => {
-    // this.getmessages().then(r => { this.setState({ messagesList: r }) })
+    this.getmessages().then(r => { this.setState({ messagesList: r }) })
   }
 
   submitMessage = (event) => {
     event.preventDefault()
-    // CHAT LINK SUBMIT
+    fetch(this.props.chatLink,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ "content": this.state.inputValue })
+      })
+      .then(r => r.json())
+      .then((r) => {
+        this.setState({ messagesList: r, inputValue: "" })
+      })
   }
 
-  deleteMessage = (messageNumber) => {
+  deleteMessage = (message) => {
     if (confirm("Are you sure you want to delete this message? It cannot be undone")) {
-      fetch(this.state.chatLink + '?delete=' + messageNumber.toString())
+      fetch(this.props.chatLink+"/delete",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify(message)
+        })
+        .then(r => r.json())
+        .then((r) => {
+          this.setState({ messagesList: r, inputValue: "" })
+        })
     }
     this.fetchData()
   }
 
   render = () => {
     return (
-      <div style={{ 'width': "100vw", "height": "100vh", "display": "flex", "flex-direction": "column" }}>
+      <div style={{ 'width': "70vw", "height": "80vh", "display": "flex", "flexDirection": "column" }}>
         <div style={{ 'overflowY': 'scroll', "flex": "2 1 auto" }}>
           <ul>
             {this.state.messagesList.map((item, index) => {
@@ -64,7 +87,7 @@ class Player extends React.Component {
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
               return (
                 <li key={index} style={{ 'padding': '5px' }}>
-                  <button onClick={() => this.deleteMessage(index)} style={{ "width": "100%", "backgroundColor": "#f4f4f4", "padding": "10px", "border": "none", "TextAlign": "left"}}>
+                  <button onClick={() => this.deleteMessage(item)} style={{ "width": "100%", "backgroundColor": "#f4f4f4", "padding": "10px", "border": "none", "TextAlign": "left"}}>
                     <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
                     <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px' }}>{item.content}</p>
                   </button>
@@ -74,7 +97,7 @@ class Player extends React.Component {
           </ul>
         </div>
         <div>
-          <Form onSubmit={this.submitMessage} style={{ 'width': "100vw", "display": "flex", "flex-direction": "row", "overflow": "hidden" }}>
+          <Form onSubmit={this.submitMessage} style={{ 'width': "70vw", "display": "flex", "flexDirection": "row", "overflow": "hidden" }}>
             <TextInput
               id="Message_Box"
               placeholder="Message"
