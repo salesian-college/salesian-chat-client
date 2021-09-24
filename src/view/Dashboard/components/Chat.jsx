@@ -3,7 +3,11 @@ import { TextInput, Button, Form } from 'carbon-components-react'
 import { Send32 } from '@carbon/icons-react'
 const fetch = require('node-fetch')
 
-class Player extends React.Component {
+class Chat extends React.Component {
+
+  getToken = () => {
+    return sessionStorage.getItem('token');
+  }
 
   getmessages = () => {
     return new Promise((resolve, reject) => {
@@ -47,7 +51,8 @@ class Player extends React.Component {
       {
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'sal-token': this.getToken()
         },
         method: "POST",
         body: JSON.stringify({ "content": this.state.inputValue })
@@ -64,7 +69,8 @@ class Player extends React.Component {
         {
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Sal-Token': this.getToken()
           },
           method: "POST",
           body: JSON.stringify(message)
@@ -85,11 +91,13 @@ class Player extends React.Component {
             {this.state.messagesList.map((item, index) => {
               var date = new Date(item.date * 1000)
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
+              var style = {}
+              if (item.bold) style = { "fontWeight": "bold" }
               return (
                 <li key={index} style={{ 'padding': '5px' }}>
                   <button onClick={() => this.deleteMessage(item)} style={{ "width": "100%", "backgroundColor": "#f4f4f4", "padding": "10px", "border": "none", "TextAlign": "left"}}>
                     <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
-                    <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px' }}>{item.content}</p>
+                    <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px', ...style}}>{item.content}</p>
                   </button>
                 </li>
               )
@@ -123,4 +131,4 @@ class Player extends React.Component {
 }
 
 
-export default Player
+export default Chat

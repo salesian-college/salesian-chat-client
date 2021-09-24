@@ -65,10 +65,12 @@ class Chat extends React.Component {
             {this.state.messagesList.map((item, index) => {
               var date = new Date(item.date * 1000)
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
+              var style = {}
+              if (item.bold) style = { "fontWeight": "bold" }
               return (
                 <li key={index} style={{ 'padding': '5px' }}>
                   <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
-                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px' }}>{item.content}</p>
+                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px', ...style}}>{item.content}</p>
                 </li>
               )
             })}

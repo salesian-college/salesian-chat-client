@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { useParams } from "react-router"
 import React, { Suspense } from 'react'
 const ChatConponent = React.lazy(() => import('./Chat.jsx'))
-const DashboardIndex = React.lazy(() => import('./DashboardIndex.jsx'))
+const DashboardIndex = React.lazy(() => import('./Dashboard/Index.jsx'))
 
 function Chat() {
     let { ChatName } = useParams()
@@ -16,7 +16,7 @@ function App() {
             <Router>
                 <Switch>
                     <Route exact path="/" children={<div style={{ 'height': '100%', 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'padding': '10px' }}>Hi, I am <a href="https://jsanderson.net">Josh</a> and I am the technical director of website operations, and I will be assisting with this website.</div>} />
-                    <Route path="/Dashboard" children={<DashboardIndex />} />
+                    <Route path="/dashboard" children={<DashboardIndex />} />
                     <Route path="/:ChatName" children={<Chat />} />
                 </Switch>
             </Router>
