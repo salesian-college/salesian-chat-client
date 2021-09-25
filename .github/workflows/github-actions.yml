@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: salesian-college/salesian-chat-client
+          images: ghcr.io/salesian-college/salesian-chat-server
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
