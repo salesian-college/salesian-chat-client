@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { useParams } from "react-router"
 import React, { Suspense } from 'react'
-const ChatConponent = React.lazy(() => import('./Chat.jsx'))
+const ChatConponent = React.lazy(() => import('./Chat/Chat.jsx'))
 const DashboardIndex = React.lazy(() => import('./Dashboard/Index.jsx'))
+const Home = React.lazy(() => import('./Home.jsx'))
 
 function Chat() {
     let { ChatName } = useParams()
@@ -12,10 +13,10 @@ function Chat() {
 
 function App() {
     return (
-        <Suspense fallback={<div style={{ 'height': '100%', 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'padding': '10px' }}><div style={{ "padding": "10px", "margin": "10px", "backgroundClip": "padding-box", "backgroundColor": "#FFFFFF", "height": "100%", 'textAlign': 'center', 'fontFamily': 'Candara' }}>Loading....</div></div>}>
+        <Suspense fallback={<div style={{'display': 'flex', 'justifyContent': 'center', 'padding': '50px' }}><div>Loading....</div></div>}>
             <Router>
                 <Switch>
-                    <Route exact path="/" children={<div style={{ 'height': '100%', 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'padding': '10px' }}>Hi, I am <a href="https://jsanderson.net">Josh</a> and I am the technical director of website operations, and I will be assisting with this website.</div>} />
+                    <Route exact path="/" children={<Home />} />
                     <Route path="/dashboard" children={<DashboardIndex />} />
                     <Route path="/:ChatName" children={<Chat />} />
                 </Switch>

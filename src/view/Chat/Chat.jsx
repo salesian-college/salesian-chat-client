@@ -2,6 +2,7 @@ import React from 'react'
 import { TextInput, Button, Form } from 'carbon-components-react'
 import { Send32 } from '@carbon/icons-react'
 const fetch = require('node-fetch')
+import './Chat.css'
 
 class Chat extends React.Component {
 
@@ -59,18 +60,18 @@ class Chat extends React.Component {
 
   render = () => {
     return (
-      <div style={{ 'width': "100vw", "height": "100vh", "display": "flex", "flexDirection": "column" }}>
-        <div style={{ 'overflowY': 'scroll', "flex": "2 1 auto" }}>
+      <div className="chat-container">
+        <div className="messages-container">
           <ul>
             {this.state.messagesList.map((item, index) => {
               var date = new Date(item.date * 1000)
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
-              var style = {}
-              if (item.bold) style = { "fontWeight": "bold" }
+              var className = "message"
+              if (item.bold) className = "message teacher"
               return (
-                <li key={index} style={{ 'padding': '5px' }}>
-                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '0.75em', 'color': '#808080', 'paddingBottom': '0px' }}>{time}</p>
-                  <p style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1em', 'color': '#000000', 'paddingTop': '0px', ...style}}>{item.content}</p>
+                <li key={index} style={{ 'padding': '10px' }}>
+                  <p className="date">{time}</p>
+                  <p className={className}>{item.content}</p>
                 </li>
               )
             })}
@@ -81,12 +82,12 @@ class Chat extends React.Component {
             <TextInput
               id="Message_Box"
               placeholder="Message"
-              style={{ 'fontFamily': 'Candara', 'fontWeight': 'normal', 'fontSize': '1.5em', "boxSizing": "border-box" }}
+              style={{ 'fontSize': '1.5em' }}
               onChange={evt => this.updateInputValue(evt)}
               value={this.state.inputValue}
             />
             <Button
-              style={{ 'backgroundColor': '#005eb8', 'fontSize': '2em', "boxSizing": "border-box" }}
+              style={{ 'backgroundColor': '#005eb8' }}
               hasIconOnly
               renderIcon={Send32}
               tooltipAlignment="center"

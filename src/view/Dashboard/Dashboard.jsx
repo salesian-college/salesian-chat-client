@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom'
 import HeaderContainer from 'carbon-components-react/lib/components/UIShell/HeaderContainer'
-import { Content, Header, HeaderMenuButton, HeaderName, SkipToContent, SideNav, SideNavItems } from 'carbon-components-react/lib/components/UIShell'
-import NavLink from './components/NavLink.jsx'
-const ChatConponent = React.lazy(() => import('./components/Chat.jsx'))
+import { Content, Header, HeaderMenuButton, HeaderName, SkipToContent, SideNav, SideNavItems, SideNavLink } from 'carbon-components-react/lib/components/UIShell'
+import { Chat32 } from '@carbon/icons-react'
+const ChatConponent = React.lazy(() => import('./components/Chat/Chat.jsx'))
 
 const Chat = () => {
   let { ChatName } = useParams()
@@ -42,9 +42,9 @@ class DashboardIndex extends React.Component {
                 <HeaderName href="/dashboard" prefix=''>
                   Open Evening Dashboard
                 </HeaderName>
-                <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
+                <SideNav aria-label="Side navigation" expanded={isSideNavExpanded} isRail={true}>
                   <SideNavItems>
-                    {this.state.channels.map((channel, index) => <NavLink key={index} to={`/dashboard/${channel}`} label={channel} />)}
+                    {this.state.channels.map((channel, index) => <SideNavLink renderIcon={Chat32} key={index} href={`/dashboard/${channel}`}>{channel}</SideNavLink>)}
                   </SideNavItems>
                 </SideNav>
               </Header>

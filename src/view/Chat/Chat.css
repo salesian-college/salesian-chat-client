@@ -1,0 +1,48 @@
+.chat-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Candara;
+}
+
+.messages-container {
+    overflow-y: scroll;
+    flex: 2 1 auto;
+}
+
+.date {
+    font-size: 0.75em;
+    color: #808080;
+    padding-bottom: 0px;
+}
+
+.message {
+    font-size: 1em;
+    color: #000000;
+    padding-top: 0px;
+}
+
+.message.teacher {
+    font-weight: bold;
+}
+
+.form {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.message-box {
+    font-size: 1.5em;
+}
+
+.send-button {
+    background-color: #005eb8;
+}
+
+li {
+    padding: 15px;
+}
+
