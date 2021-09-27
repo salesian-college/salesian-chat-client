@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextInput, Button, Form } from 'carbon-components-react'
-import { Send32 } from '@carbon/icons-react'
+import { Send32, Edit32, TrashCan32, Reply32 } from '@carbon/icons-react'
 const fetch = require('node-fetch')
 import "./Chat.css"
 
@@ -23,7 +23,10 @@ class Chat extends React.Component {
     this.state = {
       messagesList: [],
       inputValue: "",
-      chatLink: props.chatLink
+      chatLink: props.chatLink,
+      reply: {},
+      edit: false,
+      messageEdit: {}
     }
   }
 
@@ -48,20 +51,38 @@ class Chat extends React.Component {
 
   submitMessage = (event) => {
     event.preventDefault()
-    fetch(this.props.chatLink,
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'sal-token': this.getToken()
-        },
-        method: "POST",
-        body: JSON.stringify({ "content": this.state.inputValue })
-      })
-      .then(r => r.json())
-      .then((r) => {
-        this.setState({ messagesList: r, inputValue: "" })
-      })
+    if (this.state.edit) {
+      fetch(this.props.chatLink + "/edit",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'sal-token': this.getToken()
+          },
+          method: "POST",
+          body: JSON.stringify({ "newContent": this.state.inputValue, "oldContent": this.state.messageEdit })
+        })
+        .then(r => r.json())
+        .then((r) => {
+          this.setState({ messagesList: r, inputValue: "", reply: {}, edit: false, messageEdit: {} })
+        })
+    }
+    else {
+      fetch(this.props.chatLink,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'sal-token': this.getToken()
+          },
+          method: "POST",
+          body: JSON.stringify({ "content": this.state.inputValue, "reply": this.state.reply.content })
+        })
+        .then(r => r.json())
+        .then((r) => {
+          this.setState({ messagesList: r, inputValue: "", reply: {} })
+        })
+    }
   }
 
   deleteMessage = (message) => {
@@ -92,22 +113,62 @@ class Chat extends React.Component {
             {this.state.messagesList.map((item, index) => {
               var date = new Date(item.date * 1000)
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
+              if (item.reply) {
+                var reply = item.reply.replace(/^(.{80}[^\s]*).*/, "$1")
+                if (reply.length < item.reply.length) reply = reply + "..."
+                time = "Replying to: " + reply + " • " + time
+              }
               var className = "message"
-              if (item.bold) className = "message teacher"
+              var edit = <Button
+                hasIconOnly
+                renderIcon={Reply32}
+                tooltipAlignment="center"
+                tooltipPosition="bottom"
+                iconDescription="Reply to Message"
+                size='field'
+                onClick={() => this.setState({ reply: item })}
+              />
+              if (item.bold) {
+                className = "message teacher"
+                edit = <Button
+                  hasIconOnly
+                  renderIcon={Edit32}
+                  tooltipAlignment="center"
+                  tooltipPosition="bottom"
+                  iconDescription="Edit Message"
+                  size='field'
+                  onClick={() => { this.setState({ edit: true, messageEdit: item, inputValue: item.content }); this.messageInput.focus() }}
+                />
+              }
               return (
-                <li className = "messages-list" key={index}>
-                  <button onClick={() => this.deleteMessage(item)} className="delete-button">
+                <Form className="form messageform" key={index}>
+                  <li className="messages-list">
                     <p className="date">{time}</p>
                     <p className={className}>{item.content}</p>
-                  </button>
-                </li>
+                  </li>
+                  {edit}
+                  <Button
+                    hasIconOnly
+                    renderIcon={TrashCan32}
+                    tooltipAlignment="center"
+                    tooltipPosition="bottom"
+                    iconDescription="Delete Message"
+                    size='field'
+                    kind="danger"
+                    onClick={() => this.deleteMessage(item)}
+                  />
+                </Form>
               )
             })}
           </ul>
         </div>
+        <div style={{ "visibility": this.state.reply.content ? "visible" : "hidden" }} className="reply-box">
+          <a onClick={() => this.setState({ reply: {} })}>Replying to: "{this.state.reply.content}"</a>
+        </div>
         <div>
           <Form onSubmit={this.submitMessage} className="form">
             <TextInput
+              ref={(input) => { this.messageInput = input; }}
               id="Message_Box"
               placeholder="Message"
               className="message-box"
@@ -117,7 +178,7 @@ class Chat extends React.Component {
             <Button
               className="send-button"
               hasIconOnly
-              renderIcon={Send32}
+              renderIcon={this.state.edit ? Edit32 : Send32}
               tooltipAlignment="center"
               tooltipPosition="bottom"
               iconDescription="Send Message"

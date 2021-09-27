@@ -66,10 +66,15 @@ class Chat extends React.Component {
             {this.state.messagesList.map((item, index) => {
               var date = new Date(item.date * 1000)
               var time = (date.getHours()) + ":" + ("0" + date.getMinutes()).substr(-2)
+              if (item.reply) {
+                var reply = item.reply.replace(/^(.{80}[^\s]*).*/, "$1")
+                if (reply.length < item.reply.length) reply = reply + "..."
+                time = "Replying to: " + reply + " • " + time
+              }
               var className = "message"
               if (item.bold) className = "message teacher"
               return (
-                <li style={{"padding": "2px"}}key={index}>
+                <li style={{ "padding": "2px" }} key={index}>
                   <p className="date">{time}</p>
                   <p className={className}>{item.content}</p>
                 </li>

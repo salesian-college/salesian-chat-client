@@ -51,7 +51,7 @@ class DashboardIndex extends React.Component {
               <Switch>
                 <Content id="main-content">
                   <div className="bx--grid">
-                    <div className="bx--row" style={{"marginLeft": "10px"}}>
+                    <div className="bx--row" style={{ "marginLeft": "10px" }}>
                       <Suspense fallback={<div style={{ 'display': 'flex', 'justifyContent': 'center', 'padding': '50px' }}><div>Loading....</div></div>}>
                         <Route exact path="/dashboard">
                           <h1>Teacher Chat Dashboard</h1>

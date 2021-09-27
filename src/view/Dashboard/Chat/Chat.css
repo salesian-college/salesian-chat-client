@@ -3,7 +3,7 @@
     height: 85vh;
     display: flex;
     flex-direction: column;
-    font-family: Candara;
+    font-family: "Candara W01 Regular", sans-serif;
 }
 
 .messages-container {
@@ -34,23 +34,24 @@
     overflow: hidden;
 }
 
+.form.messageform {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
 .message-box {
     font-size: 1.5em;
 }
 
-.send-button {
-    background-color: #005eb8;
-}
-
-.delete-button {
-    width: 100%;
-    background-color: #f4f4f4;
-    padding: 10px;
-    border: none;
-    text-align: left;
-}
-
 .messages-list {
     padding: 5px;
+    flex: 1;
+    background-color: #f4f4f4;
+}
+
+.reply-box {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid rgb(141, 141, 141);
 }
 
