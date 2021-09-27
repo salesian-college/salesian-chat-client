@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
-import Login from './components/LoginManager.jsx';
-import Dashboard from './Dashboard.jsx';
-import useToken from './components/useToken.jsx';
+import React from 'react';
+const Login = React.lazy(() => import('./Login/Login.jsx'))
+const Dashboard = React.lazy(() => import('./Dashboard.jsx'))
+import useToken from './useToken.jsx';
 
 function App() {
     const { token, setToken } = useToken();
@@ -13,4 +11,8 @@ function App() {
     return <Dashboard />
 }
 
-export default App;
+function Index() {
+    return <App/>
+}
+
+export default Index

@@ -9,8 +9,6 @@ import {
 
 import { ArrowRight20 } from '@carbon/icons-react'
 
-import icon from './images/icon.jpg'
-
 const Login = ({ setToken }) => {
   const [password, setPassword] = useState()
   const [error, setError] = useState()
@@ -36,7 +34,7 @@ const Login = ({ setToken }) => {
         <div style={{ "width": "25vw", "margin": "auto" }}>
           <br />
           <br />
-          <img src={icon} style={{ "width": "25vw", "margin": "auto" }} />
+          <img src="/images/icon.jpg" style={{ "width": "25vw", "margin": "auto" }} />
           <br />
           <br />
           <br />

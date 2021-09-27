@@ -3,7 +3,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: Candara;
+    font-family: "Candara W01 Regular", sans-serif;
+    font-size: 1.2em;
 }
 
 .messages-container {
@@ -42,7 +43,7 @@
     background-color: #005eb8;
 }
 
-li {
+ul {
     padding: 15px;
 }
 

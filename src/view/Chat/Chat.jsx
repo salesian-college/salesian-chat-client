@@ -69,7 +69,7 @@ class Chat extends React.Component {
               var className = "message"
               if (item.bold) className = "message teacher"
               return (
-                <li key={index} style={{ 'padding': '10px' }}>
+                <li style={{"padding": "2px"}}key={index}>
                   <p className="date">{time}</p>
                   <p className={className}>{item.content}</p>
                 </li>
@@ -78,16 +78,16 @@ class Chat extends React.Component {
           </ul>
         </div>
         <div>
-          <Form onSubmit={this.submitMessage} style={{ 'width': "100vw", "display": "flex", "flexDirection": "row", "overflow": "hidden" }}>
+          <Form onSubmit={this.submitMessage} className="form">
             <TextInput
               id="Message_Box"
               placeholder="Message"
-              style={{ 'fontSize': '1.5em' }}
+              className="message-box"
               onChange={evt => this.updateInputValue(evt)}
               value={this.state.inputValue}
             />
             <Button
-              style={{ 'backgroundColor': '#005eb8' }}
+              className="send-button"
               hasIconOnly
               renderIcon={Send32}
               tooltipAlignment="center"

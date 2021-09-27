@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-
 import HeaderContainer from 'carbon-components-react/lib/components/UIShell/HeaderContainer'
 import { Content, Header, HeaderMenuButton, HeaderName, SkipToContent, SideNav, SideNavItems, SideNavLink } from 'carbon-components-react/lib/components/UIShell'
 import { Chat32 } from '@carbon/icons-react'
-const ChatConponent = React.lazy(() => import('./components/Chat/Chat.jsx'))
+const ChatConponent = React.lazy(() => import('./Chat/Chat.jsx'))
 
 const Chat = () => {
   let { ChatName } = useParams()
@@ -51,16 +51,14 @@ class DashboardIndex extends React.Component {
               <Switch>
                 <Content id="main-content">
                   <div className="bx--grid">
-                    <div className="bx--row">
-                      <section className="bx--offset-lg-2 bx--col-lg-10">
-                        <Suspense fallback={<div style={{ 'height': '100%', 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'padding': '10px' }}><div style={{ "padding": "10px", "margin": "10px", "backgroundClip": "padding-box", "backgroundColor": "#FFFFFF", "height": "100%", 'textAlign': 'center', 'fontFamily': 'Candara' }}>Loading....</div></div>}>
-                          <Route exact path="/dashboard">
-                            <h1>Teacher Chat Dashboard</h1>
-                            <h3>Click on your subject to moderate and send chat messages</h3>
-                          </Route>
-                          <Route exact path="/dashboard/:ChatName" children={<Chat />} />
-                        </Suspense>
-                      </section>
+                    <div className="bx--row" style={{"marginLeft": "10px"}}>
+                      <Suspense fallback={<div style={{ 'display': 'flex', 'justifyContent': 'center', 'padding': '50px' }}><div>Loading....</div></div>}>
+                        <Route exact path="/dashboard">
+                          <h1>Teacher Chat Dashboard</h1>
+                          <h3>Click on your subject to moderate and send chat messages</h3>
+                        </Route>
+                        <Route exact path="/dashboard/:ChatName" children={<Chat />} />
+                      </Suspense>
                     </div>
                   </div>
                 </Content>
