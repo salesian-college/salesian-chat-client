@@ -1,0 +1,57 @@
+.chat-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Candara W01 Regular", sans-serif;
+}
+
+.messages-container {
+    overflow-y: scroll;
+    flex: 2 1 auto;
+}
+
+.date {
+    font-size: 0.75em;
+    color: #808080;
+    padding-bottom: 0px;
+}
+
+.message {
+    font-size: 1em;
+    color: #000000;
+    padding-top: 0px;
+}
+
+.message.teacher {
+    font-weight: bold;
+}
+
+.form {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.form.messageform {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.message-box {
+    font-size: 1.5em;
+}
+
+.messages-list {
+    padding: 5px;
+    flex: 1;
+    background-color: #f4f4f4;
+}
+
+.reply-box {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid rgb(141, 141, 141);
+}
+

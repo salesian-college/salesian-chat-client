@@ -102,7 +102,6 @@ class Chat extends React.Component {
           this.setState({ messagesList: r, inputValue: "" })
         })
     }
-    this.fetchData()
   }
 
   render = () => {

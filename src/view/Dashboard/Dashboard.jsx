@@ -54,8 +54,10 @@ class DashboardIndex extends React.Component {
                     <div className="bx--row" style={{ "marginLeft": "10px" }}>
                       <Suspense fallback={<div style={{ 'display': 'flex', 'justifyContent': 'center', 'padding': '50px' }}><div>Loading....</div></div>}>
                         <Route exact path="/dashboard">
-                          <h1>Teacher Chat Dashboard</h1>
-                          <h3>Click on your subject to moderate and send chat messages</h3>
+                          <div>
+                            <h1>Teacher Chat Dashboard</h1>
+                            <h3>Click on the chat icons to moderate and send chat messages</h3>
+                          </div>
                         </Route>
                         <Route exact path="/dashboard/:ChatName" children={<Chat />} />
                       </Suspense>

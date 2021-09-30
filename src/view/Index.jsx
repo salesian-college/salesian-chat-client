@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import React, { Suspense } from 'react'
 const ChatConponent = React.lazy(() => import('./Chat/Chat.jsx'))
 const DashboardIndex = React.lazy(() => import('./Dashboard/Index.jsx'))
+const PresenterIndex = React.lazy(() => import('./Presenter/Index.jsx'))
 const Home = React.lazy(() => import('./Home.jsx'))
 
 function Chat() {
@@ -18,6 +19,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" children={<Home />} />
                     <Route path="/dashboard" children={<DashboardIndex />} />
+                    <Route path="/presenter" children={<PresenterIndex />} />
                     <Route path="/:ChatName" children={<Chat />} />
                 </Switch>
             </Router>
