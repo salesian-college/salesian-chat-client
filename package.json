@@ -2,7 +2,7 @@
   "name": "main-website",
   "version": "0.1.3",
   "main": "src/index.js",
-  "repository": "https://gitlab.jsanderson.net/salesian/main-website",
+  "repository": "https://github.com/salesian-college/salesian-chat-client",
   "author": "Joshua Sanderson <sanderson.joshua@salesian.hants.sch.uk>",
   "license": "UNLICENSED",
   "scripts": {
